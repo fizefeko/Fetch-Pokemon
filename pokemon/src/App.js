@@ -1,14 +1,13 @@
 import React from "react";
 import "./App.css";
-import { PokemonList } from "./components/pokemon-list/pokemon-list.component";
+import PokemonList from "./components/pokemon-list/pokemon-list.component";
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       pokemons: [],
-      includes: "",
-      desiredId: ""
+      type: ""
     };
   }
 
@@ -22,36 +21,28 @@ class App extends React.Component {
       });
   }
 
-  onSearchChange = (event) => {
-    this.setState({ includes: event.target.value });
+  onInputChange = (event) => {
+    this.setState({ type: event.target.value });
   };
-  onIdChange = (event) => {
-    this.setState({ desiredId: event.target.value });
-  };
+
   render() {
-    const { pokemons, includes, desiredId } = this.state;
-    const filteredMonsters = pokemons.filter((pokemon) =>
-      pokemon.name.toLowerCase().includes(includes.toLowerCase())
-    );
-    console.log(filteredMonsters);
+    // const filteredPokemons = this.state.pokemons.filter((pokemon) => {
+    //   return pokemon.name.includes(this.state.letters);
+    // });
+
     return (
       <div className="container">
-        <div className="d-flex justify-content-center mb-5 ">
-          <div className="row">
+        <div className="d-flex flex-column align-items-center mb-5 ">
+          <div className="row mb-4">
             <input
-              className="form-control col-lg-3"
-              placeholder="Includes"
-              onChange={this.onSearchChange}
+              className="form-control col-lg-12"
+              placeholder="Filter by type"
+              onChange={this.onInputChange}
+              type="text"
             ></input>
-            <input
-              className="form-control col-lg-3 ml-2"
-              placeholder="Id"
-              onChange={this.onIdChange}
-            ></input>
-            <button className="btn btn-outline-success ml-1">search</button>
           </div>
         </div>
-        <PokemonList pokemons={filteredMonsters} />
+        <PokemonList pokemons={this.state.pokemons} type={this.state.type} />
       </div>
     );
   }

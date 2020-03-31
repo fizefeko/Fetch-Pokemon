@@ -5,3 +5,16 @@ body {
   padding-top: 50px;
   padding-bottom: 50px;
 }
+.btn {
+  width: 120px;
+}
+.form-control {
+  border: none !important;
+  border-radius: 0 !important;
+  border-bottom: 2px solid yellow !important;
+  background-color: transparent !important;
+  color: antiquewhite !important;
+}
+.form-control:focus {
+  box-shadow: none !important;
+}
