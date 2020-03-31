@@ -1,0 +1,41 @@
+.form-control {
+  border: none !important;
+  border-radius: 0 !important;
+  border-bottom: 2px solid #ffc107 !important;
+  background-color: transparent !important;
+  color: antiquewhite !important;
+}
+.form-control:focus {
+  box-shadow: none !important;
+}
+.btn-outline-primary {
+  position: absolute;
+  left: 80px;
+  top: 55px;
+}
+.alert {
+  padding: 5px 10px !important;
+  animation: 0.3s ease-out grow;
+}
+
+.btn-outline-primary {
+  animation: 0.2s ease-out grow;
+}
+
+/* -------------------------------- */
+
+@media screen and (max-width: 600px) {
+  .btn-outline-primary {
+    left: 180px;
+    top: 10px;
+  }
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

@@ -1,18 +1,25 @@
 import React from "react";
 import "./App.css";
+
+import pokemonTypes from "./data/pokemon.types";
+
 import PokemonList from "./components/pokemon-list/pokemon-list.component";
+import Filter from "./components/filter/filter.component";
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      pokemonTypes: pokemonTypes,
       pokemons: [],
-      type: ""
+      inputValue: "",
+      type: "",
+      typeDoesNotExist: false
     };
   }
 
   componentDidMount() {
-    fetch("https://pokeapi.co/api/v2/pokemon")
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=150")
       .then((response) => {
         return response.json();
       })
@@ -22,7 +29,20 @@ class App extends React.Component {
   }
 
   onInputChange = (event) => {
-    this.setState({ type: event.target.value });
+    this.setState({ inputValue: event.target.value.toLowerCase() });
+  };
+  changeFilter = () => {
+    if (this.state.pokemonTypes.includes(this.state.inputValue)) {
+      this.setState({ typeDoesNotExist: false });
+      this.setState({ type: this.state.inputValue });
+    } else {
+      this.setState({ typeDoesNotExist: true });
+    }
+  };
+  cleanFilter = () => {
+    this.setState({ type: "" });
+    this.setState({ inputValue: "" });
+    this.setState({ typeDoesNotExist: false });
   };
 
   render() {
@@ -32,16 +52,14 @@ class App extends React.Component {
 
     return (
       <div className="container">
-        <div className="d-flex flex-column align-items-center mb-5 ">
-          <div className="row mb-4">
-            <input
-              className="form-control col-lg-12"
-              placeholder="Filter by type"
-              onChange={this.onInputChange}
-              type="text"
-            ></input>
-          </div>
-        </div>
+        <Filter
+          onInputChange={this.onInputChange}
+          inputValue={this.state.inputValue}
+          changeFilter={this.changeFilter}
+          cleanFilter={this.cleanFilter}
+          type={this.state.type}
+          typeDoesNotExist={this.state.typeDoesNotExist}
+        />
         <PokemonList pokemons={this.state.pokemons} type={this.state.type} />
       </div>
     );
