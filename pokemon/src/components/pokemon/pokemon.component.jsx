@@ -1,6 +1,7 @@
 import React from "react";
 import "./pokemon.styles.css";
 import LoadingSpinner from "../loading-spinner/loading-spinner";
+import { withRouter } from "react-router-dom";
 class Pokemon extends React.Component {
   state = {
     name: "",
@@ -31,13 +32,16 @@ class Pokemon extends React.Component {
     const imageUrl = `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${pokeIndex}.png?raw=true`;
     this.setState({ name, types, imageUrl, pokeIndex });
   }
+  onCardClick = () => {
+    this.props.history.push(`/pokemon/${this.state.pokeIndex}`);
+  };
   capitalizeFirstLetter = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
   render() {
     if (this.state.types.includes(this.props.type) || this.props.type === "") {
       return (
-        <div className="card m-2">
+        <div className="card m-2" onClick={this.onCardClick}>
           <div className="card-header d-flex justify-content-between">
             <span>{this.state.pokeIndex}</span>
             {this.state.imageError ? (
@@ -54,7 +58,6 @@ class Pokemon extends React.Component {
               className="card-ing-top rounded mx-auto w-100 m-0"
             />
             <h6 className="card-title text-center">
-              {" "}
               {this.capitalizeFirstLetter(this.state.name)}
             </h6>
             <div className="text-center">
@@ -72,4 +75,4 @@ class Pokemon extends React.Component {
   }
 }
 
-export default Pokemon;
+export default withRouter(Pokemon);

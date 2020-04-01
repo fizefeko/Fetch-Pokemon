@@ -1,11 +1,12 @@
 .card:hover {
   transform: scale(1.02);
   box-shadow: 1px 1px 15px 1px rgb(255, 0, 0);
+  cursor: pointer;
 }
 .card {
   border-radius: 1 !important;
   width: 200px;
-  height: 250px;
+  height: auto;
   animation: 200ms ease-in-out 1 grow;
 }
 .card-body {
@@ -13,5 +14,5 @@
 }
 img {
   width: 100px;
-  height: 100px;
+  height: 50px;
 }
