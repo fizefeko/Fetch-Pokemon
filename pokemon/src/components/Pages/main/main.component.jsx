@@ -1,68 +1,54 @@
-import React from "react";
-
-import pokemonTypes from "../../../data/pokemon.types";
+import React, { useReducer, useEffect } from "react";
 
 import PokemonList from "../../pokemon-list/pokemon-list.component";
-import Filter from "../../filter/filter.component";
+import Filter from "../../Shared/filter/filter.component";
+import { reducer, initialState } from "./main.reducer";
 
-class Main extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      pokemonTypes: pokemonTypes,
-      pokemons: [],
-      inputValue: "",
-      type: "",
-      typeDoesNotExist: false
-    };
-  }
-
-  componentDidMount() {
+const Main = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  useEffect(() => {
     fetch("https://pokeapi.co/api/v2/pokemon?limit=150")
       .then((response) => {
         return response.json();
       })
       .then((pokemons) => {
-        this.setState({ pokemons: pokemons.results });
+        dispatch({ type: "FETCH_SUCCESS", payload: pokemons.results });
       });
-  }
+  });
 
-  onInputChange = (event) => {
-    this.setState({ inputValue: event.target.value.toLowerCase() });
+  const onInputChange = (event) => {
+    dispatch({
+      type: "SET_INPUT_VALUE",
+      payload: event.target.value.toLowerCase()
+    });
   };
-  changeFilter = () => {
-    if (this.state.pokemonTypes.includes(this.state.inputValue)) {
-      this.setState({ typeDoesNotExist: false });
-      this.setState({ type: this.state.inputValue });
+  const changeFilter = () => {
+    if (state.pokemonTypes.includes(state.inputValue)) {
+      dispatch({ type: "SET_TYPE_DOES_NOT_EXIST", payload: false });
+      dispatch({ type: "SET_TYPE", payload: state.inputValue });
     } else {
-      this.setState({ typeDoesNotExist: true });
+      dispatch({ type: "SET_TYPE_DOES_NOT_EXIST", payload: true });
     }
   };
-  cleanFilter = () => {
-    this.setState({ type: "" });
-    this.setState({ inputValue: "" });
-    this.setState({ typeDoesNotExist: false });
+  const cleanFilter = () => {
+    dispatch({ type: "SET_TYPE", payload: "" });
+    dispatch({ type: "SET_INPUT_VALUE", payload: "" });
+    dispatch({ type: "SET_TYPE_DOES_NOT_EXIST", payload: false });
   };
 
-  render() {
-    // const filteredPokemons = this.state.pokemons.filter((pokemon) => {
-    //   return pokemon.name.includes(this.state.letters);
-    // });
-
-    return (
-      <div className="container">
-        <Filter
-          onInputChange={this.onInputChange}
-          inputValue={this.state.inputValue}
-          changeFilter={this.changeFilter}
-          cleanFilter={this.cleanFilter}
-          type={this.state.type}
-          typeDoesNotExist={this.state.typeDoesNotExist}
-        />
-        <PokemonList pokemons={this.state.pokemons} type={this.state.type} />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="container">
+      <Filter
+        onInputChange={onInputChange}
+        inputValue={state.inputValue}
+        changeFilter={changeFilter}
+        cleanFilter={cleanFilter}
+        type={state.type}
+        typeDoesNotExist={state.typeDoesNotExist}
+      />
+      <PokemonList pokemons={state.pokemons} type={state.type} />
+    </div>
+  );
+};
 
 export default Main;
