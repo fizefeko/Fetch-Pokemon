@@ -1,13 +1,21 @@
-img {
-  width: 150px;
+.profile-image {
+  width: 120px;
   height: 150px;
+  border: none;
 }
 .pokemon-sprites {
+  border: 1px solid black;
+
+  margin: 1px;
   width: 50px;
-  height: 50px;
+  height: 50px !important;
 }
 .stats-bar {
   background-color: green;
   height: 25px;
   color: white;
+}
+.card-details:hover {
+  box-shadow: none;
+  cursor: auto;
 }

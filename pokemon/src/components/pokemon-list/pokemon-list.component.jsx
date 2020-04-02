@@ -5,7 +5,12 @@ const PokemonList = (props) => (
   <div className="card-list">
     <div className="d-flex flex-wrap justify-content-around">
       {props.pokemons.map((pokemon, index) => (
-        <Pokemon key={index} pokemon={pokemon} type={props.type} />
+        <Pokemon
+          key={index}
+          pokemon={pokemon}
+          type={props.type}
+          secondType={props.secondType}
+        />
       ))}
     </div>
   </div>

@@ -2,7 +2,7 @@
   border: none !important;
   border-radius: 0 !important;
   border-bottom: 2px solid #ffc107 !important;
-  background-color: transparent !important;
+  background-color: #3b3a3a !important;
   color: antiquewhite !important;
 }
 .form-control:focus {

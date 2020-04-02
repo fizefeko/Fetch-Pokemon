@@ -49,7 +49,7 @@ const PokemonDetails = (props) => {
 
   return (
     <div className="container d-flex justify-content-center">
-      <div className="card p-0 col-lg-8" style={inline}>
+      <div className="card card-details p-0 col-lg-8" style={inline}>
         <div className="card-header d-flex justify-content-between">
           <span>
             <strong>{name ? capitalizeFirstLetter(name) : null}</strong>
@@ -58,7 +58,7 @@ const PokemonDetails = (props) => {
         </div>
         <div className="card-body row">
           <div className="col-md-3">
-            <img src={state.imgUrl} alt="poke" />
+            <img className="profile-image" src={state.imgUrl} alt="poke" />
           </div>
           <div className="col-md-3">
             <h5>Abilities:</h5>
@@ -74,12 +74,7 @@ const PokemonDetails = (props) => {
             <h5>Sprites:</h5>
             {pokemonSprites
               ? pokemonSprites.map((el, idx) => (
-                  <img
-                    key={idx}
-                    className="pokemon-sprites"
-                    alt="lala"
-                    src={el}
-                  />
+                  <img key={idx} className="pokemon-sprites" alt="" src={el} />
                 ))
               : null}
           </div>

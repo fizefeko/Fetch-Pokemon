@@ -4,7 +4,9 @@ export const initialState = {
   pokemonTypes: pokemonTypes,
   pokemons: [],
   inputValue: "",
+  secondInputValue: "",
   type: "",
+  secondType: "",
   typeDoesNotExist: false
 };
 
@@ -22,6 +24,11 @@ export const reducer = (state, action) => {
         ...state,
         inputValue: action.payload
       };
+    case "SET_SECOND_INPUT_VALUE":
+      return {
+        ...state,
+        secondInputValue: action.payload
+      };
     case "SET_TYPE_DOES_NOT_EXIST":
       return {
         ...state,
@@ -31,6 +38,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         type: action.payload
+      };
+    case "SET_SECOND_TYPE":
+      return {
+        ...state,
+        secondType: action.payload
       };
 
     default:

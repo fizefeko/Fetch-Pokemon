@@ -40,7 +40,11 @@ const Pokemon = (props) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
-  if (state.types.includes(props.type) || props.type === "") {
+  if (
+    (state.types.includes(props.type) &&
+      state.types.includes(props.secondType)) ||
+    props.type === ""
+  ) {
     return (
       <div className="card m-2" onClick={onCardClick}>
         <div className="card-header d-flex justify-content-between">
